@@ -1,6 +1,8 @@
 from application import app, db
 from flask import render_template, request, redirect, url_for
 
+from flask_login import current_user, login_required
+
 from application.teams.models import Team
 from application.teams.forms import TeamForm
 
@@ -10,10 +12,12 @@ def teams_index():
     return render_template("teams/list.html", teams = Team.query.all())
 
 @app.route("/teams/new/")
+@login_required
 def teams_form():
     return render_template("teams/new.html", form = TeamForm())
 
 @app.route("/teams/", methods=["POST"])
+@login_required
 def teams_create():
     form = TeamForm(request.form)
 
@@ -21,6 +25,7 @@ def teams_create():
         return render_template("teams/new.html", form = form)
 
     t = Team(form.name.data)
+    t.account_id = current_user.id
 
     db.session().add(t)
     db.session().commit()

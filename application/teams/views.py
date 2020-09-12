@@ -16,6 +16,12 @@ def teams_index():
 def teams_form():
     return render_template("teams/new.html", form = TeamForm())
 
+@app.route("/teams/<team_id>")
+def teams_getOne(team_id):
+    t = Team.query.get(team_id)
+
+    return render_template("teams/team.html", team = t)
+
 @app.route("/teams/", methods=["POST"])
 @login_required
 def teams_create():

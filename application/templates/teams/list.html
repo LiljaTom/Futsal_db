@@ -1,12 +1,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <ul>
+    <table>
+        <tr>
+            <th>Name</th>
+        </tr>
         {% for team in teams %}
-        <li>
-            <p>{{ team.name }}</p>
-        </li>
+        <tr>
+            <td>{{ team.name }}</td>
+            <td><a href="{{ url_for('teams_getOne', team_id = team.id) }}">Show!</a></td>
+        </tr>
         {% endfor %}
-    </ul>
-
+    </table>
 {% endblock %}

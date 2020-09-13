@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div>
+    <h2>Divisions</h2>
+    <ul>
+        {% for division in divisions %}
+        <li><a>{{ division.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
